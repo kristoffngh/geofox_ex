@@ -119,14 +119,13 @@ defmodule Geofox.Client do
   @spec post(t(), String.t(), map(), keyword()) :: {:ok, map()} | {:error, term()}
   def post(client, path, body, opts \\ []) do
     # Add authentication headers if credentials are available
-    headers = build_auth_headers(client, body)
+    json_body = Jason.encode!(body)
 
     request_opts =
       [
         url: path,
-        # Let Req handle JSON encoding
-        json: body,
-        headers: headers
+        body: json_body,
+        headers: build_auth_headers(client, json_body)
       ] ++ opts
 
     case Req.post(client, request_opts) do
@@ -197,11 +196,9 @@ defmodule Geofox.Client do
     |> Enum.uniq_by(fn {key, _} -> String.downcase(key) end)
   end
 
-  defp build_auth_headers(client, body_map) do
+  defp build_auth_headers(client, json_body) do
     case Req.Request.get_private(client, :geofox_auth) do
       %{user: user, password: password} ->
-        # Encode the body for signature generation
-        json_body = Jason.encode!(body_map)
         signature = generate_hmac_signature(json_body, password)
 
         [
