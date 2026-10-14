@@ -50,7 +50,9 @@ defmodule Geofox.MixProject do
       {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test},
-      {:mox, "~> 1.1", only: :test}
+      {:mox, "~> 1.1", only: :test},
+      # Required by Req.Test for stubbing HTTP requests in tests
+      {:plug, "~> 1.20", only: :test}
     ]
   end
 

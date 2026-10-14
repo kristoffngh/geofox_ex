@@ -87,7 +87,7 @@ defmodule Geofox.Helpers do
       %{"name" => "Hauptbahnhof", "id" => "Master:1", "type" => "STATION"}
 
       iex> Geofox.Helpers.station("Airport", nil, type: "POI")
-      %{"name" => "Airport", "id" => nil, "type" => "POI"}
+      %{"name" => "Airport", "type" => "POI"}
 
   """
   @spec station(String.t(), String.t() | nil, keyword()) :: map()
