@@ -8,7 +8,7 @@ defmodule Geofox.MixProject do
     [
       app: :geofox_ex,
       version: @version,
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       deps: deps(),
       docs: docs(),
       package: package(),
@@ -47,7 +47,7 @@ defmodule Geofox.MixProject do
       {:req, "~> 0.7.5"},
       {:jason, "~> 1.4"},
       {:ex_doc, "~> 0.31", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test},
       {:bypass, "~> 2.1", only: :test},

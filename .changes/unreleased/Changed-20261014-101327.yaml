@@ -1,0 +1,3 @@
+kind: Changed
+body: Require Elixir ~> 1.15 (needed by req 0.7.5)
+time: 2026-10-14T10:13:27.038704+02:00
