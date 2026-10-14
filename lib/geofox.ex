@@ -35,8 +35,8 @@ defmodule Geofox do
 
   ## Examples
 
-      iex> client = Geofox.new()
-      iex> client = Geofox.new(timeout: 60000)
+      client = Geofox.new()
+      client = Geofox.new(timeout: 60_000)
 
   """
   @spec new(keyword()) :: Client.t()
