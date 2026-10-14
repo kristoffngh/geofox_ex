@@ -122,11 +122,13 @@ defmodule Geofox.Client do
     # Add authentication headers if credentials are available
     headers = build_auth_headers(client, body)
 
-    request_opts = [
-      url: path,
-      json: body,  # Let Req handle JSON encoding
-      headers: headers
-    ] ++ opts
+    request_opts =
+      [
+        url: path,
+        # Let Req handle JSON encoding
+        json: body,
+        headers: headers
+      ] ++ opts
 
     case Req.post(client, request_opts) do
       {:ok, %Req.Response{status: status, body: response_body}} when status in 200..299 ->
@@ -149,6 +151,7 @@ defmodule Geofox.Client do
   @spec get(t(), String.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def get(client, path, opts \\ []) do
     request_opts = [url: path] ++ opts
+
     case Req.get(client, request_opts) do
       {:ok, %Req.Response{status: status, body: response_body}} when status in 200..299 ->
         ErrorHandler.check_response(response_body)
@@ -200,6 +203,7 @@ defmodule Geofox.Client do
         # Encode the body for signature generation
         json_body = Jason.encode!(body_map)
         signature = generate_hmac_signature(json_body, password)
+
         [
           {"geofox-auth-user", user},
           {"geofox-auth-type", "HmacSHA1"},

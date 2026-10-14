@@ -51,18 +51,19 @@ defmodule Geofox.Core.Stations do
   """
   @spec check_name(Client.t(), Types.sd_name(), keyword()) :: {:ok, map()} | {:error, term()}
   def check_name(client, name, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      theName: name,
-      maxList: Keyword.get(opts, :max_list),
-      maxDistance: Keyword.get(opts, :max_distance),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      tariffDetails: Keyword.get(opts, :tariff_details, false),
-      allowTypeSwitch: Keyword.get(opts, :allow_type_switch, true)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        theName: name,
+        maxList: Keyword.get(opts, :max_list),
+        maxDistance: Keyword.get(opts, :max_distance),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        tariffDetails: Keyword.get(opts, :tariff_details, false),
+        allowTypeSwitch: Keyword.get(opts, :allow_type_switch, true)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/checkName", request)
   end
@@ -109,15 +110,17 @@ defmodule Geofox.Core.Stations do
   - Elevator details including dimensions, status, and accessibility features
 
   """
-  @spec get_station_information(Client.t(), Types.sd_name(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec get_station_information(Client.t(), Types.sd_name(), keyword()) ::
+          {:ok, map()} | {:error, term()}
   def get_station_information(client, station, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      station: station
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        station: station
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getStationInformation", request)
   end
@@ -157,16 +160,17 @@ defmodule Geofox.Core.Stations do
   """
   @spec list_stations(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def list_stations(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      dataReleaseID: Keyword.get(opts, :data_release_id),
-      modificationTypes: Keyword.get(opts, :modification_types),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      filterEquivalent: Keyword.get(opts, :filter_equivalent, false)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        dataReleaseID: Keyword.get(opts, :data_release_id),
+        modificationTypes: Keyword.get(opts, :modification_types),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        filterEquivalent: Keyword.get(opts, :filter_equivalent, false)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/listStations", request)
   end

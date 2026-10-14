@@ -47,13 +47,14 @@ defmodule Geofox.Utils.Validation do
   """
   @spec check_postal_code(Client.t(), integer(), keyword()) :: {:ok, map()} | {:error, term()}
   def check_postal_code(client, postal_code, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      postalCode: postal_code
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        postalCode: postal_code
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/checkPostalCode", request)
   end
@@ -107,18 +108,19 @@ defmodule Geofox.Utils.Validation do
   """
   @spec check_name(Client.t(), Types.sd_name(), keyword()) :: {:ok, map()} | {:error, term()}
   def check_name(client, name_info, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      theName: name_info,
-      maxList: Keyword.get(opts, :max_list),
-      maxDistance: Keyword.get(opts, :max_distance),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      tariffDetails: Keyword.get(opts, :tariff_details, false),
-      allowTypeSwitch: Keyword.get(opts, :allow_type_switch, true)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        theName: name_info,
+        maxList: Keyword.get(opts, :max_list),
+        maxDistance: Keyword.get(opts, :max_distance),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        tariffDetails: Keyword.get(opts, :tariff_details, false),
+        allowTypeSwitch: Keyword.get(opts, :allow_type_switch, true)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/checkName", request)
   end

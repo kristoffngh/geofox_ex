@@ -87,17 +87,18 @@ defmodule Geofox.Ticketing.Optimizer do
   """
   @spec single_ticket_optimizer(Client.t(), map(), keyword()) :: {:ok, map()} | {:error, term()}
   def single_ticket_optimizer(client, route, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      withReturnJourney: Keyword.get(opts, :with_return_journey),
-      numberOfAdults: Keyword.get(opts, :number_of_adults),
-      numberOfChildren: Keyword.get(opts, :number_of_children),
-      tickets: Keyword.get(opts, :tickets),
-      route: route
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        withReturnJourney: Keyword.get(opts, :with_return_journey),
+        numberOfAdults: Keyword.get(opts, :number_of_adults),
+        numberOfChildren: Keyword.get(opts, :number_of_children),
+        tickets: Keyword.get(opts, :tickets),
+        route: route
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/singleTicketOptimizer", request)
   end

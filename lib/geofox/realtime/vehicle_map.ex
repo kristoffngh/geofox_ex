@@ -56,21 +56,23 @@ defmodule Geofox.Realtime.VehicleMap do
   - Each journey contains segments with coordinates, timing, and real-time delays
 
   """
-  @spec get_vehicle_map(Client.t(), Types.bounding_box(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec get_vehicle_map(Client.t(), Types.bounding_box(), keyword()) ::
+          {:ok, map()} | {:error, term()}
   def get_vehicle_map(client, bounding_box, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      boundingBox: bounding_box,
-      periodBegin: Keyword.get(opts, :period_begin),
-      periodEnd: Keyword.get(opts, :period_end),
-      withoutCoords: Keyword.get(opts, :without_coords),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      vehicleTypes: Keyword.get(opts, :vehicle_types),
-      realtime: Keyword.get(opts, :realtime)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        boundingBox: bounding_box,
+        periodBegin: Keyword.get(opts, :period_begin),
+        periodEnd: Keyword.get(opts, :period_end),
+        withoutCoords: Keyword.get(opts, :without_coords),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        vehicleTypes: Keyword.get(opts, :vehicle_types),
+        realtime: Keyword.get(opts, :realtime)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getVehicleMap", request)
   end
@@ -113,16 +115,18 @@ defmodule Geofox.Realtime.VehicleMap do
   - Track coordinates can be used to draw route lines on maps
 
   """
-  @spec get_track_coordinates(Client.t(), [String.t()], keyword()) :: {:ok, map()} | {:error, term()}
+  @spec get_track_coordinates(Client.t(), [String.t()], keyword()) ::
+          {:ok, map()} | {:error, term()}
   def get_track_coordinates(client, stop_point_keys, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      stopPointKeys: stop_point_keys
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        stopPointKeys: stop_point_keys
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getTrackCoordinates", request)
   end

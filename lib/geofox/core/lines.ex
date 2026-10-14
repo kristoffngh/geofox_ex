@@ -42,15 +42,16 @@ defmodule Geofox.Core.Lines do
   """
   @spec list_lines(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def list_lines(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      withSublines: Keyword.get(opts, :with_sublines, false),
-      dataReleaseID: Keyword.get(opts, :data_release_id),
-      modificationTypes: Keyword.get(opts, :modification_types)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        withSublines: Keyword.get(opts, :with_sublines, false),
+        dataReleaseID: Keyword.get(opts, :data_release_id),
+        modificationTypes: Keyword.get(opts, :modification_types)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/listLines", request)
   end

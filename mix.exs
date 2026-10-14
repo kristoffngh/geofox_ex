@@ -23,7 +23,7 @@ defmodule Geofox.MixProject do
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
         plt_add_apps: [:mix]
       ],
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -47,14 +47,14 @@ defmodule Geofox.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test},
       {:bypass, "~> 2.1", only: :test},
-      {:mox, "~> 1.1", only: :test},
+      {:mox, "~> 1.1", only: :test}
     ]
   end
 
-
   defp package do
     [
-      description: "Elixir client library for the Hamburg Public Transport (HVV) Geofox API, providing route planning, real-time departures, station information, and tariff calculations.",
+      description:
+        "Elixir client library for the Hamburg Public Transport (HVV) Geofox API, providing route planning, real-time departures, station information, and tariff calculations.",
       licenses: ["MIT"],
       keywords: ["hvv", "hamburg", "public-transport", "api", "geofox", "transportation"],
       links: %{

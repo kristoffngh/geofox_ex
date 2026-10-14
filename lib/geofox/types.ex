@@ -84,8 +84,11 @@ defmodule Geofox.Types do
   @type filter_planned :: :NO_FILTER | :ONLY_PLANNED | :ONLY_UNPLANNED
 
   @type profile_type ::
-          :BICYCLE_NORMAL | :BICYCLE_RACING | :BICYCLE_QUIET_ROADS
-          | :BICYCLE_MAIN_ROADS | :BICYCLE_BAD_WEATHER
+          :BICYCLE_NORMAL
+          | :BICYCLE_RACING
+          | :BICYCLE_QUIET_ROADS
+          | :BICYCLE_MAIN_ROADS
+          | :BICYCLE_BAD_WEATHER
           | :FOOT_NORMAL
 
   @type speed_type :: :NORMAL

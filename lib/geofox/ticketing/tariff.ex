@@ -48,18 +48,19 @@ defmodule Geofox.Ticketing.Tariff do
   @spec get_tariff(Client.t(), [map()], Types.gti_time(), Types.gti_time(), keyword()) ::
           {:ok, map()} | {:error, term()}
   def get_tariff(client, schedule_elements, departure, arrival, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      scheduleElements: schedule_elements,
-      departure: departure,
-      arrival: arrival,
-      returnReduced: Keyword.get(opts, :return_reduced, false),
-      returnPartialTickets: Keyword.get(opts, :return_partial_tickets, true),
-      tariffInfoSelector: Keyword.get(opts, :tariff_info_selector)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        scheduleElements: schedule_elements,
+        departure: departure,
+        arrival: arrival,
+        returnReduced: Keyword.get(opts, :return_reduced, false),
+        returnPartialTickets: Keyword.get(opts, :return_partial_tickets, true),
+        tariffInfoSelector: Keyword.get(opts, :tariff_info_selector)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getTariff", request)
   end
@@ -93,12 +94,13 @@ defmodule Geofox.Ticketing.Tariff do
   """
   @spec tariff_meta_data(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def tariff_meta_data(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER")
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER")
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/tariffMetaData", request)
   end
@@ -132,12 +134,13 @@ defmodule Geofox.Ticketing.Tariff do
   """
   @spec tariff_zone_neighbours(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def tariff_zone_neighbours(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER")
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER")
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/tariffZoneNeighbours", request)
   end

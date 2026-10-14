@@ -59,13 +59,14 @@ defmodule Geofox.Core.Session do
   """
   @spec init(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def init(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      properties: Keyword.get(opts, :properties, [])
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        properties: Keyword.get(opts, :properties, [])
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/init", request)
   end

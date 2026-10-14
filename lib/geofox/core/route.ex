@@ -61,38 +61,39 @@ defmodule Geofox.Core.Route do
   @spec get_route(Client.t(), Types.sd_name(), Types.sd_name(), Types.gti_time(), keyword()) ::
           {:ok, map()} | {:error, term()}
   def get_route(client, start, dest, time, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      start: start,
-      dest: dest,
-      time: time,
-      timeIsDeparture: Keyword.get(opts, :time_is_departure, true),
-      withPaths: Keyword.get(opts, :with_paths, false),
-      numberOfSchedules: Keyword.get(opts, :number_of_schedules, 3),
-      realtime: Keyword.get(opts, :realtime, "AUTO"),
-      intermediateStops: Keyword.get(opts, :intermediate_stops, false),
-      tariffDetails: Keyword.get(opts, :tariff_details, false),
-      returnReduced: Keyword.get(opts, :return_reduced, false),
-      returnPartialTickets: Keyword.get(opts, :return_partial_tickets, true),
-      via: Keyword.get(opts, :via),
-      penalties: Keyword.get(opts, :penalties),
-      schedulesBefore: Keyword.get(opts, :schedules_before, 0),
-      schedulesAfter: Keyword.get(opts, :schedules_after, 0),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
-      useBikeAndRide: Keyword.get(opts, :use_bike_and_ride, false),
-      tariffInfoSelector: Keyword.get(opts, :tariff_info_selector),
-      continousSearch: Keyword.get(opts, :continuous_search, false),
-      contSearchByServiceId: Keyword.get(opts, :cont_search_by_service_id),
-      useStationPosition: Keyword.get(opts, :use_station_position, true),
-      forcedStart: Keyword.get(opts, :forced_start),
-      forcedDest: Keyword.get(opts, :forced_dest),
-      toStartBy: Keyword.get(opts, :to_start_by),
-      toDestBy: Keyword.get(opts, :to_dest_by),
-      returnContSearchData: Keyword.get(opts, :return_cont_search_data)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        start: start,
+        dest: dest,
+        time: time,
+        timeIsDeparture: Keyword.get(opts, :time_is_departure, true),
+        withPaths: Keyword.get(opts, :with_paths, false),
+        numberOfSchedules: Keyword.get(opts, :number_of_schedules, 3),
+        realtime: Keyword.get(opts, :realtime, "AUTO"),
+        intermediateStops: Keyword.get(opts, :intermediate_stops, false),
+        tariffDetails: Keyword.get(opts, :tariff_details, false),
+        returnReduced: Keyword.get(opts, :return_reduced, false),
+        returnPartialTickets: Keyword.get(opts, :return_partial_tickets, true),
+        via: Keyword.get(opts, :via),
+        penalties: Keyword.get(opts, :penalties),
+        schedulesBefore: Keyword.get(opts, :schedules_before, 0),
+        schedulesAfter: Keyword.get(opts, :schedules_after, 0),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326"),
+        useBikeAndRide: Keyword.get(opts, :use_bike_and_ride, false),
+        tariffInfoSelector: Keyword.get(opts, :tariff_info_selector),
+        continousSearch: Keyword.get(opts, :continuous_search, false),
+        contSearchByServiceId: Keyword.get(opts, :cont_search_by_service_id),
+        useStationPosition: Keyword.get(opts, :use_station_position, true),
+        forcedStart: Keyword.get(opts, :forced_start),
+        forcedDest: Keyword.get(opts, :forced_dest),
+        toStartBy: Keyword.get(opts, :to_start_by),
+        toDestBy: Keyword.get(opts, :to_dest_by),
+        returnContSearchData: Keyword.get(opts, :return_cont_search_data)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getRoute", request)
   end
@@ -143,20 +144,21 @@ defmodule Geofox.Core.Route do
   @spec get_individual_route(Client.t(), [Types.sd_name()], [Types.sd_name()], keyword()) ::
           {:ok, map()} | {:error, term()}
   def get_individual_route(client, starts, dests, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      starts: starts,
-      dests: dests,
-      maxLength: Keyword.get(opts, :max_length),
-      maxResults: Keyword.get(opts, :max_results),
-      type: Keyword.get(opts, :type, "EPSG_4326"),
-      serviceType: Keyword.get(opts, :service_type, "FOOTPATH"),
-      profile: Keyword.get(opts, :profile, "FOOT_NORMAL"),
-      speed: Keyword.get(opts, :speed, "NORMAL")
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        starts: starts,
+        dests: dests,
+        maxLength: Keyword.get(opts, :max_length),
+        maxResults: Keyword.get(opts, :max_results),
+        type: Keyword.get(opts, :type, "EPSG_4326"),
+        serviceType: Keyword.get(opts, :service_type, "FOOTPATH"),
+        profile: Keyword.get(opts, :profile, "FOOT_NORMAL"),
+        speed: Keyword.get(opts, :speed, "NORMAL")
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getIndividualRoute", request)
   end

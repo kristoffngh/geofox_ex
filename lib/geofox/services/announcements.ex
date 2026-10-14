@@ -66,17 +66,18 @@ defmodule Geofox.Services.Announcements do
   """
   @spec get_announcements(Client.t(), keyword()) :: {:ok, map()} | {:error, term()}
   def get_announcements(client, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      names: Keyword.get(opts, :names),
-      timeRange: Keyword.get(opts, :time_range),
-      full: Keyword.get(opts, :full, false),
-      filterPlanned: Keyword.get(opts, :filter_planned),
-      showBroadcastRelevant: Keyword.get(opts, :show_broadcast_relevant, false)
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        names: Keyword.get(opts, :names),
+        timeRange: Keyword.get(opts, :time_range),
+        full: Keyword.get(opts, :full, false),
+        filterPlanned: Keyword.get(opts, :filter_planned),
+        showBroadcastRelevant: Keyword.get(opts, :show_broadcast_relevant, false)
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/getAnnouncements", request)
   end

@@ -115,21 +115,22 @@ defmodule Geofox.Core.Departures do
   @spec departure_course(Client.t(), String.t(), Types.sd_name(), String.t(), keyword()) ::
           {:ok, map()} | {:error, term()}
   def departure_course(client, line_key, station, time, opts \\ []) do
-    request = %{
-      language: Keyword.get(opts, :language, "de"),
-      version: Keyword.get(opts, :version, 1),
-      filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
-      lineKey: line_key,
-      station: station,
-      time: time,
-      direction: Keyword.get(opts, :direction),
-      origin: Keyword.get(opts, :origin),
-      serviceId: Keyword.get(opts, :service_id, -1),
-      segments: Keyword.get(opts, :segments, "ALL"),
-      showPath: Keyword.get(opts, :show_path, false),
-      coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326")
-    }
-    |> filter_nil_values()
+    request =
+      %{
+        language: Keyword.get(opts, :language, "de"),
+        version: Keyword.get(opts, :version, 1),
+        filterType: Keyword.get(opts, :filter_type, "NO_FILTER"),
+        lineKey: line_key,
+        station: station,
+        time: time,
+        direction: Keyword.get(opts, :direction),
+        origin: Keyword.get(opts, :origin),
+        serviceId: Keyword.get(opts, :service_id, -1),
+        segments: Keyword.get(opts, :segments, "ALL"),
+        showPath: Keyword.get(opts, :show_path, false),
+        coordinateType: Keyword.get(opts, :coordinate_type, "EPSG_4326")
+      }
+      |> filter_nil_values()
 
     Client.post(client, "/gti/public/departureCourse", request)
   end
