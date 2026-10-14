@@ -73,8 +73,9 @@ defmodule Geofox.MixProject do
   defp docs do
     [
       extras: [
-        LICENSE: [title: "License"],
-        "README.md": [title: "Overview"]
+        "README.md": [title: "Overview"],
+        "CHANGELOG.md": [title: "Changelog"],
+        LICENSE: [title: "License"]
       ],
       main: "readme",
       source_url: @source_url,
