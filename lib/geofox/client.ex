@@ -178,9 +178,7 @@ defmodule Geofox.Client do
     default_headers = [
       {"Content-Type", "application/json; charset=UTF-8"},
       {"Accept", "application/json"},
-      {"Accept-Encoding", "gzip, deflate"},
-      {"User-Agent", "geofox_ex/#{Application.spec(:geofox, :vsn) || "dev"}"},
-      {"Connection", "Keep-Alive"}
+      {"User-Agent", "geofox_ex/#{Application.spec(:geofox_ex, :vsn) || "dev"}"}
     ]
 
     platform_headers =
