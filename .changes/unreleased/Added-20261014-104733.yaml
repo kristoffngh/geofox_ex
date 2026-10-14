@@ -1,0 +1,3 @@
+kind: Added
+body: Client.new/1 accepts :req_options to pass extra options to Req (e.g. a Req.Test plug)
+time: 2026-10-14T10:47:33.077406+02:00

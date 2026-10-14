@@ -37,8 +37,10 @@ defmodule Geofox.Client do
     * `:user` - Application ID for authentication (required for most endpoints)
     * `:password` - Password for HMAC-SHA1 signature generation (required for auth)
     * `:platform` - Platform identifier (e.g., "ios", "android", "web", "mobile")
-    * `:retry` - Retry configuration (default: false)
+    * `:retry` - Retry transient failures (default: false)
     * `:max_retries` - Maximum number of retries (default: 3)
+    * `:req_options` - Extra options merged into the underlying `Req.Request`
+      (e.g. `plug: {Req.Test, MyStub}` in tests)
 
   ## Examples
 
@@ -68,17 +70,14 @@ defmodule Geofox.Client do
       base_url: base_url,
       receive_timeout: timeout,
       headers: build_default_headers(headers, platform),
-      json: Jason
+      retry: normalize_retry(retry),
+      max_retries: max_retries
     ]
 
-    request_options =
-      if retry do
-        Keyword.put(request_options, :retry, max_retries)
-      else
-        request_options
-      end
-
-    client = Req.new(request_options)
+    client =
+      request_options
+      |> Keyword.merge(Keyword.get(opts, :req_options, []))
+      |> Req.new()
 
     # Store auth credentials in client for signature generation
     if user && password do
@@ -171,6 +170,9 @@ defmodule Geofox.Client do
       Application.get_env(:geofox, key) ||
       default
   end
+
+  defp normalize_retry(true), do: :transient
+  defp normalize_retry(retry), do: retry
 
   defp build_default_headers(base_headers, platform) do
     default_headers = [
