@@ -2,7 +2,7 @@ defmodule Geofox.MixProject do
   use Mix.Project
 
   @source_url "https://codeberg.org/kristoffn/geofox_ex"
-  @version "0.1.1"
+  @version "1.0.0"
 
   def project do
     [
