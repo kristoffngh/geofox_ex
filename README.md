@@ -18,8 +18,6 @@ end
 
 ## Configuration
 
-Most endpoints work without authentication, but some require API credentials from HBT GmbH:
-
 ```elixir
 config :geofox,
   user: "your_user_id",
